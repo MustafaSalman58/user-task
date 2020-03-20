@@ -1,0 +1,64 @@
+
+<div class="row" style="margin-top: 10px;">
+    <h2>{{ isLoginMode? 'Login User': 'Signup New User' }}</h2>
+</div>
+<hr>
+<div class="row">
+    <div class="col-xs-12 col-md-6 col-offset-3">
+        <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+            <div class="form-group" *ngIf="!isLoginMode">
+                <label for="name">Name</label>
+                <input type="text" id="name" class="form-control"
+                formControlName="name">
+            </div>
+            <div class="form-group">
+                <label for="email">E-mail</label>
+                <input type="email" id="email" class="form-control"
+                formControlName="email"
+                #email>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" class="form-control"
+                formControlName="password"
+                minlength="6">
+            </div>
+            <p *ngIf="passwordStrength" [ngStyle]="{color: passwordColor}" style="font-weight: bold;">Your Password is: {{ passwordStrength }}</p>
+            <div class="form-group" *ngIf="!isLoginMode">
+                <label for="cPassword">Confirm Password</label>
+                <input type="password" id="cPassword" class="form-control"
+                formControlName="cPassword"
+                minlength="6">
+            </div>
+            <p *ngIf="userForm.errors && userForm.errors['miss match'] && userForm.get('password').dirty && userForm.get('cPassword').dirty" 
+            style="color: red;">Passwords are not matched</p>
+            <div class="form-group" *ngIf="!isLoginMode">
+                <label for="address">address</label>
+                <input type="text" id="address" class="form-control"
+                formControlName="address">
+            </div>
+            <div class="form-group" *ngIf="!isLoginMode">
+                <label for="tel">Tel:</label>
+                <input type="number" id="tel" class="form-control"
+                formControlName="tel">
+            </div>
+            <div *ngIf="!isLoginMode">
+                <div class="radio" *ngFor="let gender of genders">
+                    <label>
+                      <input type="radio" name="gender" [value]="gender"
+                      formControlName="gender">
+                      {{ gender }}
+                    </label>
+                  </div>
+            </div>
+            <div>
+                <br>
+                <button class="btn btn-primary" 
+                [disabled]="isLoginMode? !userForm.get('email').valid || !userForm.get('password').valid: !userForm.valid">{{ isLoginMode ? 'Login' : 'Sign Up' }}</button>|
+                <button class="btn btn-primary" type="button"
+                    (click)="onSwitchMode()"
+                    >{{ isLoginMode ? 'Switch to Sign Up' : 'Switch to Login' }}</button>
+            </div>
+        </form>
+    </div>
+</div>

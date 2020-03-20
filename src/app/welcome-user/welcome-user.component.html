@@ -1,0 +1,25 @@
+<div class="row" *ngIf="!isAuth">
+    <h2>Sorry you don't have profile to show!</h2>
+    <h3>login or signup to show your profile info</h3>
+    <br>
+    <button class="btn btn-primary"
+    [routerLink]="['/signup']"
+    [queryParams]="{'currentMode': 'signup'}">Signup</button>|
+    <button class="btn btn-primary"
+    [routerLink]="['/login']"
+    [queryParams]="{'currentMode': 'login'}">Login</button>
+</div>
+
+
+<div class="row" *ngIf="isAuth && loggedUser" >
+    <h1> Welcome {{ loggedUser.name }}</h1>
+<h2>Here's your profile iformation:</h2>
+<p>name: {{ loggedUser.name }}</p>
+<p>email: {{ loggedUser.email }}</p>
+<p>address: {{ loggedUser.address }}</p>
+<p>tel: {{ loggedUser.tel }}</p>
+<p>gender: {{ loggedUser.gender }}</p>
+<hr>
+<button class="btn btn-primary"
+[routerLink]="['/edit-profile']">Edit Profile</button>
+</div>
